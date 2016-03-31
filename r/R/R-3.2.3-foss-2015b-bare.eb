@@ -1,0 +1,32 @@
+name = 'R'
+version = '3.2.3'
+
+homepage = 'http://www.r-project.org/'
+description = """R is a free software environment for statistical computing and graphics."""
+
+toolchain = {'name': 'foss', 'version': '2015b'}
+
+sources = [SOURCE_TAR_GZ]
+source_urls = ['http://cran.us.r-project.org/src/base/R-%(version_major)s']
+
+preconfigopts = 'BLAS_LIBS="$LIBBLAS" LAPACK_LIBS="$LIBLAPACK"'
+configopts = "--with-lapack --with-blas --with-pic --enable-threads --with-x=no --enable-R-shlib"
+# some recommended packages may fail in a parallel build (e.g. Matrix), and we're installing them anyway below
+configopts += " --with-recommended-packages=no"
+
+dependencies = [
+    ('libreadline', '6.3'),
+    ('ncurses', '5.9'),
+    ('libpng', '1.6.17'),  # for plotting in R
+    ('libjpeg-turbo', '1.4.1'),  # for plottting in R
+    ('Java', '1.8.0_72', '', True),  # Java bindings are built if Java is found, might as well provide it
+    ('Tcl', '8.6.4'),  # for tcltk
+    ('Tk', '8.6.4', '-no-X11'),  # for tcltk
+    ('cURL', '7.45.0'),  # for RCurl
+    ('libxml2', '2.9.2'),  # for XML
+    ('GDAL', '2.0.1'),  # for rgdal
+    ('PROJ', '4.8.0'), # for rgdal
+]
+
+
+moduleclass = 'lang'
