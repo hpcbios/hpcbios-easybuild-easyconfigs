@@ -1,0 +1,59 @@
+
+
+
+easyblock = "Bundle"
+
+name = "gdc-client"
+version = "1.2.0"
+
+homepage = "https://gdc.nci.nih.gov/access-data/gdc-data-transfer-tool"
+description = """
+    The GDC provides a standard client-based mechanism in support of high performance data downloads and submission.
+    """
+
+toolchain = {'name': 'foss', 'version': '2016a'}
+
+gh_user = "NCI-GDC"
+gh_commit = "1.2.0"
+
+options = {'modulename': 'gdc_client'}
+
+
+python = "Python"
+python_version = "2.7.11"
+versionsuffix = '-%s-%s' % (python, python_version)
+
+exts_defaultclass = 'PythonPackage'
+exts_filter = ('python -c "import %(ext_name)s"', '')
+
+dependencies = [
+    ('lxml', '3.6.0', versionsuffix),
+    (python, python_version)
+]
+
+py_short_ver = ".".join(python_version.split(".")[0:2])
+pylibdir = "lib/python%s/site-packages" % (py_short_ver)
+
+
+exts_list = [
+
+
+   (name, version, {
+        'source_urls': ['https://github.com/%s/%s/archive/' % (gh_user, name)],
+        'source_tmpl': 'v%(version)s.tar.gz' ,
+        'modulename': 'gdc_client',
+
+    }),
+]
+
+sanity_check_paths = {
+                      'files': [],
+                      'dirs': [pylibdir]
+                     }
+
+modextrapaths = {
+    'PYTHONPATH': [pylibdir]
+}
+
+moduleclass = 'bio'
+
