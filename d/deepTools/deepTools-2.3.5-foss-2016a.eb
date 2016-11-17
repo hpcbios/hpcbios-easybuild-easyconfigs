@@ -1,0 +1,57 @@
+
+easyblock = 'Bundle'
+
+name = "deepTools"
+version = "2.3.5"
+
+description = """deepTools is a suite of python tools particularly developed for the efficient analysis of high-throughput sequencing data, such as ChIP-seq, RNA-seq or MNase-seq."""
+
+homepage = "https://deeptools.github.io/"
+
+toolchain = { 'name': 'foss', 'version': '2016a'}
+
+
+python = "Python"
+python_version = "2.7.11"
+versionsuffix = '-%s-%s' % (python, python_version)
+
+exts_defaultclass = 'PythonPackage'
+dependencies = [
+    ('Python', '2.7.11'), 
+    ('matplotlib', '1.5.1', versionsuffix),
+]
+
+py_short_ver = ".".join(python_version.split(".")[0:2])
+pylibdir = "lib/python%s/site-packages" % (py_short_ver)
+
+exts_list = [
+    #('numpydoc', '0.6.0', {
+        #'source_urls': ['https://pypi.python.org/packages/source/n/numpydoc/'],
+        #'modulename': 'numpydoc.traitsdoc',
+    #}),
+    ('twobitreader', '3.1.4', {
+        'source_urls': ['https://pypi.python.org/packages/source/t/twobitreader/'],
+    }),
+    ('pysam', '0.9.1.4', {
+        'source_urls': ['https://pypi.python.org/packages/source/p/pysam/'],
+    }),
+    ('pyBigWig', '0.2.8', {
+        'source_urls': ['https://pypi.python.org/packages/source/p/pyBigWig/'],
+        'modulename': 'pyBigWig',
+    }),
+
+    (name, version, {
+        'source_urls': ['https://pypi.python.org/packages/source/d/deepTools/'],
+    }),
+
+
+]
+sanity_check_paths = {
+                      'files': [],
+                      'dirs': [pylibdir]
+                     }
+
+
+modextrapaths = {
+    'PYTHONPATH': [pylibdir]
+}
