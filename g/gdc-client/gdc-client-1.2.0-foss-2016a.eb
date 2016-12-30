@@ -40,7 +40,7 @@ exts_list = [
 
    (name, version, {
         'source_urls': ['https://github.com/%s/%s/archive/' % (gh_user, name)],
-        'source_tmpl': 'v%(version)s.tar.gz' ,
+        'source_tmpl': '%(version)s.tar.gz' ,
         'modulename': 'gdc_client',
 
     }),
